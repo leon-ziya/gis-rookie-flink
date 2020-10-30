@@ -1,10 +1,8 @@
 package cn.edu.lnnu.gis.rookie.realtime.position
 
-import java.util.ArrayList
-
 import cn.edu.lnnu.gis.rookie.base.common.config.KafkaConfig
 import cn.edu.lnnu.gis.rookie.base.common.constant.Constant
-import cn.edu.lnnu.gis.rookie.base.common.entity.{ClassificationPoints, Order, Positions, VehiclePosition}
+import cn.edu.lnnu.gis.rookie.base.common.entity.{ClassificationPoints, ClassificationPositions, Positions, VehiclePosition}
 import cn.edu.lnnu.gis.rookie.base.common.enums.EmKafkaMessageTopic
 import cn.edu.lnnu.gis.rookie.base.common.sink.HttpAsyncSink
 import cn.edu.lnnu.gis.rookie.realtime.position.process.{ClassificationPointsProcess, ReduceProcessFuction}
@@ -17,13 +15,12 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer
 
 import scala.collection.mutable.ArrayBuffer
 
-
 /**
- * @ClassName RealtimePositionServer.java
+ * @ClassName ClassificationPoints.java
  * @author leon
- * @createTime 2020年10月16日 09:16:00
+ * @createTime 2020年10月27日 11:14:00
  */
-object RealtimePositionServer {
+object ClassificationPoints {
   def main(args: Array[String]): Unit = {
     import org.apache.flink.api.scala._
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
@@ -45,9 +42,11 @@ object RealtimePositionServer {
     /**
      * 将数据通过webSocket发送
      */
-   positionsDS.addSink(new HttpAsyncSink[Positions](Constant.WEBSOCKET_DASHBOARD_URL_VEHICLE_POSITION))
+    val classificationPointsDS: DataStream[ClassificationPositions] = positionsDS.process(new ClassificationPointsProcess())
+    //classificationPointsDS.print("classification==>")
 
-    env.execute("RealTimePositionServic")
+    classificationPointsDS.addSink(new HttpAsyncSink[ClassificationPositions](Constant.WEBSOCKET_DASHBOARD_URL_VEHICLE_CLASSCIFICATION_POSITION))
+
+    env.execute("ClassificationPoints")
   }
-
 }

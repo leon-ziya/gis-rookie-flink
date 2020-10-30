@@ -37,5 +37,5 @@ public interface Constant {
      */
     String WEBSOCKET_DASHBOARD_URL_VEHICLE_POSITION = "http://127.0.0.1:8080/gis-rookie/websocket/dashboard/vehicle/position/";
 
-
+    String WEBSOCKET_DASHBOARD_URL_VEHICLE_CLASSCIFICATION_POSITION = "http://127.0.0.1:8080/gis-rookie/websocket/dashboard/vehicle/classification/position/";
 }

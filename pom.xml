@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>data-simulator</module>
         <module>realtime-position</module>
         <module>base-common</module>
         <module>algorithm-util</module>
