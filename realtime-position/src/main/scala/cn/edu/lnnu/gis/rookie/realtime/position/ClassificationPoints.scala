@@ -36,14 +36,14 @@ object ClassificationPoints {
 
     val positionsDS: DataStream[Positions] = vehiclePositionDS
       .keyBy(row => row.getDriverId)
-      .timeWindowAll(Time.seconds(30), Time.seconds(2))
+      .timeWindowAll(Time.seconds(5), Time.seconds(2))
       .process(new ReduceProcessFuction())
 
     /**
      * 将数据通过webSocket发送
      */
     val classificationPointsDS: DataStream[ClassificationPositions] = positionsDS.process(new ClassificationPointsProcess())
-    //classificationPointsDS.print("classification==>")
+    classificationPointsDS.print("classification==>")
 
     classificationPointsDS.addSink(new HttpAsyncSink[ClassificationPositions](Constant.WEBSOCKET_DASHBOARD_URL_VEHICLE_CLASSCIFICATION_POSITION))
 

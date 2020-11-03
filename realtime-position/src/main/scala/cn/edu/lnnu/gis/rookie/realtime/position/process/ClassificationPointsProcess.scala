@@ -30,7 +30,7 @@ class ClassificationPointsProcess extends ProcessFunction[Positions, Classificat
     val arrayVector: Array[Vector[Double]] = arrayBuffer.toArray
 
     val dbscanUtil = new DbscanUtil
-    val (cluster, types): (Array[Int], Array[Int]) = dbscanUtil.doDbscanAnalys(arrayVector, 500, 5)
+    val (cluster, types): (Array[Int], Array[Int]) = dbscanUtil.doDbscanAnalys(arrayVector, 200, 5)
     //println("分类数==》"+cluster.size)
     val classPoints = new util.ArrayList[ClassificationPoints]()
     for(i <- 0 to arrayVector.length -1){
