@@ -2,8 +2,9 @@ package cn.edu.lnnu.gis.rookie.realtime.position.process
 
 import java.util
 
+import cn.edu.gis.rookie.algorithm.java.util.Converter.GPSConverterUtils
 import cn.edu.lnnu.gis.rookie.algorithm.util.dbscan.DbscanUtil
-import cn.edu.lnnu.gis.rookie.base.common.entity.{ClassificationPoints, ClassificationPositions, Positions}
+import cn.edu.lnnu.gis.rookie.base.common.entity.{ClassificationPoints, ClassificationPositions, GPS, Positions}
 import org.apache.flink.streaming.api.functions.ProcessFunction
 import org.apache.flink.util.Collector
 
