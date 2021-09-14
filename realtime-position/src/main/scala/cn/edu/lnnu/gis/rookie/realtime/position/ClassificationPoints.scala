@@ -26,14 +26,18 @@ object ClassificationPoints {
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
     env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime)
 
-
+    /**
+     * 读取kafka中GPS数据
+     */
     val vehiclePositionDS: DataStream[VehiclePosition] = env.addSource(new FlinkKafkaConsumer(
       EmKafkaMessageTopic.KAFKA_SIMULATOR_VEHICLE_POSITION.getTpoic,
       new SimpleStringSchema(),
       KafkaConfig.getProperties
     )).map(row => new Gson().fromJson(row, classOf[VehiclePosition]))
 
-
+    /**
+     * 划分窗口
+     */
     val positionsDS: DataStream[Positions] = vehiclePositionDS
       .keyBy(row => row.getDriverId)
       .timeWindowAll(Time.seconds(5), Time.seconds(2))

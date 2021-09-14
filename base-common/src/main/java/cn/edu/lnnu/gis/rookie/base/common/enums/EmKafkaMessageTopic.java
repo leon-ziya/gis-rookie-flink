@@ -10,6 +10,8 @@ public enum EmKafkaMessageTopic {
     KAFKA_SIMULATOR_VEHICLE_ORDER("BASE", "vehicle-order"),
     //实时位置---topic
     KAFKA_SIMULATOR_VEHICLE_POSITION("BASE", "vehicle-position"),
+    // 调用后端接口--topic
+    KAFKA_COMMAND_SERVICE_DESK("BASE", "ServiceDeskCommandMessage"),
     ;
 
 
